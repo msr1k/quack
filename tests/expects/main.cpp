@@ -1,6 +1,7 @@
 #include "./do_somethingable.hpp"
 
 #include <iostream>
+#include <vector>
 
 class A {
 public:
@@ -29,6 +30,11 @@ int main(int argc, char const* argv[])
 
     do_somethingable dsb = b;
     dsb.do_something();
+
+    std::vector<do_somethingable> dsv = { a, b };
+    for ( const auto& ds : dsv ) {
+        ds.do_something();
+    }
 
     return 0;
 }
