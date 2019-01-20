@@ -1,6 +1,11 @@
 #ifndef DO_SOMETHINGABLE_HPP
 #define DO_SOMETHINGABLE_HPP
 
+#define PATTERN1 false
+#define PATTERN2 true
+
+#if PATTERN1
+
 class do_somethingable {
 
     struct vtable {
@@ -37,5 +42,20 @@ do_somethingable::vtable do_somethingable::vtable_initializer<T>::vtbl_ = {
     &do_somethingable::vtable_initializer<T>::do_something
 };
 
+#endif
+#if PATTERN2
+
+#include <functional>
+
+class do_somethingable {
+
+public:
+    const std::function<void()> do_something;
+
+    template <class T>
+    do_somethingable(T& obj) : do_something([&obj](){ obj.do_something(); }) {}
+};
+
+#endif
 
 #endif // DO_SOMETHINGABLE_HPP
